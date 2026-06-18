@@ -17,7 +17,7 @@ RUN npm install
 COPY . .
 
 # Generate Prisma client
-RUN npx prisma generate
+RUN npx prisma@5.10.0 generate
 
 # Stage 2: Production
 FROM node:20-alpine
