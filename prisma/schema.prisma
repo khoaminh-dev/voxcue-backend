@@ -1,0 +1,28 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  USER
+  ADMIN
+  SUPER_ADMIN
+}
+
+model User {
+  id            String    @id @default(uuid())
+  firebaseUid   String    @unique
+  email         String    @unique
+  name          String?
+  avatar        String?
+  role          Role      @default(USER)
+  credits       Int       @default(100) // Default starting credits
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  // Relations can be added here later (e.g., Projects)
+}

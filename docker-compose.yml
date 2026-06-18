@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  voxcue-backend:
+    build: .
+    container_name: voxcue-backend
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+    networks:
+      - traefik_network
+    labels:
+      - "traefik.enable=true"
+      # Router settings
+      - "traefik.http.routers.voxcue-api.rule=Host(`apivoxcue.bkuteam.site`)"
+      - "traefik.http.routers.voxcue-api.entrypoints=websecure"
+      - "traefik.http.routers.voxcue-api.tls.certresolver=letsencrypt" # Adjust to match your SANKIT Traefik config
+      # Service settings
+      - "traefik.http.services.voxcue-api.loadbalancer.server.port=5000"
+      
+networks:
+  traefik_network:
+    external: true # Adjust to match your existing Traefik network name
