@@ -1,12 +1,12 @@
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
-const { authenticateUser } = require('../middlewares/authMiddleware');
+const { requireAuth } = require('../middlewares/authMiddleware');
 
 const router = express.Router();
 const prisma = new PrismaClient();
 
 // Apply authentication middleware to all routes
-router.use(authenticateUser);
+router.use(requireAuth);
 
 /**
  * GET /api/projects
@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
   try {
     const projects = await prisma.project.findMany({
       where: {
-        userId: req.user.id
+        userId: req.user.uid
       },
       orderBy: {
         updatedAt: 'desc'
@@ -45,7 +45,7 @@ router.post('/', async (req, res) => {
       data: {
         title,
         description,
-        userId: req.user.id
+        userId: req.user.uid
       }
     });
 
@@ -67,7 +67,7 @@ router.get('/:id', async (req, res) => {
     const project = await prisma.project.findFirst({
       where: {
         id,
-        userId: req.user.id
+        userId: req.user.uid
       },
       include: {
         audioFiles: {
@@ -102,7 +102,7 @@ router.put('/:id', async (req, res) => {
     const existingProject = await prisma.project.findFirst({
       where: {
         id,
-        userId: req.user.id
+        userId: req.user.uid
       }
     });
 
@@ -136,7 +136,7 @@ router.delete('/:id', async (req, res) => {
     const existingProject = await prisma.project.findFirst({
       where: {
         id,
-        userId: req.user.id
+        userId: req.user.uid
       }
     });
 

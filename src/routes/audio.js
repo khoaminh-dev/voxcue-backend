@@ -1,12 +1,12 @@
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
-const { authenticateUser } = require('../middlewares/authMiddleware');
+const { requireAuth } = require('../middlewares/authMiddleware');
 
 const router = express.Router();
 const prisma = new PrismaClient();
 
 // Apply authentication middleware to all routes
-router.use(authenticateUser);
+router.use(requireAuth);
 
 /**
  * POST /api/audio
@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
     const project = await prisma.project.findFirst({
       where: {
         id: projectId,
-        userId: req.user.id
+        userId: req.user.uid
       }
     });
 
@@ -64,7 +64,7 @@ router.delete('/:id', async (req, res) => {
       include: { project: true }
     });
 
-    if (!audioFile || audioFile.project.userId !== req.user.id) {
+    if (!audioFile || audioFile.project.userId !== req.user.uid) {
       return res.status(404).json({ error: 'Audio file not found or unauthorized' });
     }
 
