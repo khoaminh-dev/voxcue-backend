@@ -10,8 +10,7 @@ RUN apk add --no-cache openssl
 COPY package*.json ./
 COPY prisma ./prisma/
 
-# Install dependencies
-RUN rm -f package-lock.json && npm install
+RUN npm install --include=dev
 
 # Copy source code
 COPY . .
