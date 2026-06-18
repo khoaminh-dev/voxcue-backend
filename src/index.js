@@ -11,7 +11,7 @@ const app = express();
 // Security middlewares
 app.use(helmet());
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://voxcue.bkuteam.site'],
+  origin: ['http://localhost:5173', 'https://studio.bkuteam.site'],
   credentials: true
 }));
 

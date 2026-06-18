@@ -6,7 +6,7 @@ services:
     container_name: voxcue-backend
     restart: unless-stopped
     env_file:
-      - .env
+      - voxcue-backend.env
     environment:
       - NODE_ENV=production
     networks:
