@@ -27,7 +27,13 @@ app.use(limiter);
 app.use(express.json());
 
 // Routes
-app.use('/api/auth', require('./routes/auth'));
+const authRoutes = require('./routes/auth');
+const projectRoutes = require('./routes/project');
+const audioRoutes = require('./routes/audio');
+
+app.use('/api/auth', authRoutes);
+app.use('/api/projects', projectRoutes);
+app.use('/api/audio', audioRoutes);
 
 // Health check endpoint
 app.get('/health', (req, res) => {

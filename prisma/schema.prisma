@@ -24,5 +24,29 @@ model User {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   
-  // Relations can be added here later (e.g., Projects)
+  projects      Project[]
+}
+
+model Project {
+  id          String      @id @default(uuid())
+  title       String
+  description String?
+  userId      String
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  audioFiles  AudioFile[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model AudioFile {
+  id          String   @id @default(uuid())
+  title       String
+  audioUrl    String
+  duration    Float?
+  status      String?  @default("PROCESSED")
+  text        String?
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
