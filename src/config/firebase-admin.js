@@ -11,6 +11,12 @@ try {
       credential: admin.credential.cert(serviceAccount)
     });
     console.log("Firebase Admin Initialized successfully.");
+  } else if (process.env.FIREBASE_PROJECT_ID) {
+    // Initialize with just Project ID to allow token verification
+    admin.initializeApp({
+      projectId: process.env.FIREBASE_PROJECT_ID
+    });
+    console.log(`Firebase Admin Initialized with Project ID: ${process.env.FIREBASE_PROJECT_ID} (Token verification only).`);
   } else {
     // Fallback to application default credentials (works if GOOGLE_APPLICATION_CREDENTIALS is set)
     admin.initializeApp();
