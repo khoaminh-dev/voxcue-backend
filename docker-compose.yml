@@ -10,7 +10,7 @@ services:
     environment:
       - NODE_ENV=production
     networks:
-      - traefik_network
+      - proxy
     labels:
       - "traefik.enable=true"
       # Router settings
@@ -21,5 +21,5 @@ services:
       - "traefik.http.services.voxcue-api.loadbalancer.server.port=5000"
       
 networks:
-  traefik_network:
-    external: true # Adjust to match your existing Traefik network name
+  proxy:
+    external: true
