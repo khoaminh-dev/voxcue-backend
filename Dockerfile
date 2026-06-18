@@ -10,14 +10,14 @@ RUN apk add --no-cache openssl
 COPY package*.json ./
 COPY prisma ./prisma/
 
-# Install dependencies (including dev for prisma generation)
-RUN npm install
+# Install dependencies
+RUN rm -f package-lock.json && npm install
 
 # Copy source code
 COPY . .
 
 # Generate Prisma client
-RUN npx prisma@5.10.0 generate
+RUN npx prisma generate
 
 # Stage 2: Production
 FROM node:20-alpine
