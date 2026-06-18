@@ -12,14 +12,14 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "@prisma/client": "^5.10.0",
+    "@prisma/client": "5.10.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "express-rate-limit": "^8.5.2",
     "firebase-admin": "^14.0.0",
     "helmet": "^8.2.0",
-    "prisma": "^5.10.0"
+    "prisma": "5.10.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
