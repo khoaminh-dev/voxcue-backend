@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   voxcue-backend:
-    build: .
+    image: ghcr.io/khoaminh-dev/voxcue-backend:latest
     container_name: voxcue-backend
     restart: unless-stopped
     env_file:
